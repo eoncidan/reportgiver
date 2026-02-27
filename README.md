@@ -1,6 +1,6 @@
 # Report Giver 📊
 
-Ferramenta desenvolvida puramente em **PowerShell** com Interface Gráfica (GUI) customizada para extração de relatórios detalhados do Windows. O sistema coleta dados do sistema e os exporta para formatos legíveis (HTML e TXT/LOG).
+Ferramenta desenvolvida em **PowerShell** com Interface Gráfica (GUI) customizada para extração de relatórios do Windows. O sistema coleta dados do sistema e os exporta para formatos legíveis (HTML e TXT/LOG).
 
 > **Status:** Versão 1.0
 
@@ -8,9 +8,9 @@ Ferramenta desenvolvida puramente em **PowerShell** com Interface Gráfica (GUI)
 
 ## ⚙️ Pré-requisitos
 
-* Sistema Operacional Windows.
-* Windows PowerShell 5.1 ou superior.
-* Permissões de Administrador (o script pedirá elevação via UAC automaticamente).
+* Windows 10 ou superior.
+* PowerShell 5 ou superior.
+* Acesso de Administrador (Elevação via UAC automatica).
 
 ## 🛠️ Como Executar
 
