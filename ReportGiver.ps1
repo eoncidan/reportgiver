@@ -20,10 +20,10 @@ if (-not $Principal.IsInRole([Security.Principal.WindowsBuiltInRole] "Administra
 Unblock-File -Path "$PSScriptRoot\ReportGiver.ps1"
 
 # OCULTAR TERMINAL
-#$t = '[DllImport("user32.dll")] public static extern bool ShowWindow(int handle, int state);'
-#Add-Type -MemberDefinition $t -Name Api -Namespace Win32
-#$hwnd = (Get-Process -Id $PID).MainWindowHandle
-#[void][Win32.Api]::ShowWindow($hwnd, 0)
+$t = '[DllImport("user32.dll")] public static extern bool ShowWindow(int handle, int state);'
+Add-Type -MemberDefinition $t -Name Api -Namespace Win32
+$hwnd = (Get-Process -Id $PID).MainWindowHandle
+[void][Win32.Api]::ShowWindow($hwnd, 0)
 
 # ASSEMBLIES
 Add-Type -AssemblyName System.Windows.Forms
@@ -90,5 +90,6 @@ $formStyle = [ConHost]::GetWindowLong($formHandle, $GWL_STYLE)
 
 # INICIADOR DA INTERFACE
 $BackGUI.ShowDialog() | Out-Null
+
 
 
