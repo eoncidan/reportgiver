@@ -48,48 +48,9 @@ $TituloGUI.Add_MouseDown({$script:isDragging = $true; $cursorPos = [System.Windo
 $TituloGUI.Add_MouseMove({if ($script:isDragging) { $cursorPos = [System.Windows.Forms.Cursor]::Position; $BackGUI.Location = New-Object System.Drawing.Point(($cursorPos.X - $script:dragOffset.X), ($cursorPos.Y - $script:dragOffset.Y))}})
 $TituloGUI.Add_MouseUp({ $script:isDragging = $false })
 
-# --- EMBUTIR TERMINAL NA INTERFACE ---
-
-# 1. Importar APIs do Windows necessárias
-$TerminalApi = @"
-using System;
-using System.Runtime.InteropServices;
-public class ConHost {
-    [DllImport("user32.dll")] public static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
-    [DllImport("user32.dll")] public static extern bool MoveWindow(IntPtr hWnd, int X, int Y, int nWidth, int nHeight, bool bRepaint);
-    [DllImport("user32.dll")] public static extern int GetWindowLong(IntPtr hWnd, int nIndex);
-    [DllImport("user32.dll")] public static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
-}
-"@
-Add-Type -TypeDefinition $TerminalApi
-
-# 2. Constantes para alterar o estilo da janela
-$GWL_STYLE = -16
-$WS_CHILD = 0x40000000
-$WS_VISIBLE = 0x10000000
-$WS_CLIPCHILDREN = 0x02000000
-
-# 3. Forçar criação do Handle do formulário principal e evitar "piscadas" (flicker)
-$formHandle = $BackGUI.Handle
-$formStyle = [ConHost]::GetWindowLong($formHandle, $GWL_STYLE)
-[ConHost]::SetWindowLong($formHandle, $GWL_STYLE, $formStyle -bor $WS_CLIPCHILDREN) | Out-Null
-
-# 4. Alterar o estilo do terminal para se comportar como um "painel/controle" sem bordas
-[ConHost]::SetWindowLong($hwnd, $GWL_STYLE, $WS_CHILD -bor $WS_VISIBLE) | Out-Null
-
-# 5. Definir o $BackGUI como o "Pai" do terminal
-[ConHost]::SetParent($hwnd, $formHandle) | Out-Null
-
-# 6. Definir a Posição e o Tamanho do terminal na tela
-# Parâmetros: (Handle, X, Y, Largura, Altura, Repintar)
-# Aqui, ele começa no Y=40 (logo abaixo da sua barra de 30px) e deixei margens laterais.
-[ConHost]::MoveWindow($hwnd, 10, 40, 580, 650, $true) | Out-Null
-
-# 7. Mandar o terminal aparecer novamente (já que foi ocultado no começo com 0)
-[Win32.Api]::ShowWindow($hwnd, 5) | Out-Null # 5 = Mostrar
-
 # INICIADOR DA INTERFACE
 $BackGUI.ShowDialog() | Out-Null
+
 
 
 
