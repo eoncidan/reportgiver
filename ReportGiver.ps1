@@ -41,6 +41,40 @@ $TemaGUI = New-Object System.Windows.Forms.Button; $TemaGUI.Text = "⮻"; $TemaG
 $CloseGUI = New-Object System.Windows.Forms.Button; $CloseGUI.Text = "X"; $CloseGUI.Size = New-Object System.Drawing.Size(35, 30); $CloseGUI.Dock = "Right"; $CloseGUI.FlatStyle = "Flat"; $CloseGUI.FlatAppearance.BorderSize = 0; $CloseGUI.ForeColor = $script:Cor.Texto; $CloseGUI.BackColor = $script:Cor.Barra; $CloseGUI.Add_Click({ $BackGUI.Close() }); $CloseGUI.Add_MouseEnter({ $CloseGUI.BackColor = [System.Drawing.Color]::Red }); $CloseGUI.Add_MouseLeave({ $CloseGUI.BackColor = $script:Cor.Barra }); $BarGUI.Controls.Add($CloseGUI)
 $TituloGUI = New-Object System.Windows.Forms.Label; $TituloGUI.Text = "Report Giver"; $TituloGUI.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter; $TituloGUI.Dock = "Fill"; $TituloGUI.ForeColor = $script:Cor.Texto; $BarGUI.Controls.Add($TituloGUI)
 
+<# TESTE
+function Add-Relatorio {
+    param($ParentPanel, [ScriptBlock]$Func)
+
+    $Relatorio = New-Object System.Windows.Forms.Button
+    $Relatorio.Size = New-Object System.Drawing.Size(120, 40)
+    $Relatorio.Location = New-Object System.Drawing.Point(10, 10)	
+    $Relatorio.Text = "Extrair"	
+    $Relatorio.Margin = New-Object System.Windows.Forms.Padding(0, 0, 0, 10)
+    $Relatorio.BackColor = $script:Cor.Barra
+    $Relatorio.ForeColor = $script:Cor.Texto
+    $Relatorio.FlatStyle = "Flat"	
+    $Relatorio.FlatAppearance.BorderSize = 0		
+    $Relatorio.Cursor = [System.Windows.Forms.Cursors]::Hand	
+    $Relatorio.Add_Click($Func)	
+    $ParentPanel.Controls.Add($Relatorio)
+}
+
+function Rel-Teste { powercfg /batteryreport /output "$env:USERPROFILE\Desktop\Saude_Bateria.html" }
+
+$ScrollGUI = New-Object System.Windows.Forms.FlowLayoutPanel; $ScrollGUI.Location = New-Object System.Drawing.Point(10, 40); $ScrollGUI.Size = New-Object System.Drawing.Size(150, 250); $ScrollGUI.AutoScroll = $true; $ScrollGUI.FlowDirection = "TopDown"; $ScrollGUI.WrapContents = $false
+$BackGUI.Controls.Add($ScrollGUI)
+
+Add-Relatorio -ParentPanel $ScrollGUI -Relatorio "Teste" -Func {Rel-Teste}
+Add-Relatorio -ParentPanel $ScrollGUI -Relatorio "Teste" -Func {Rel-Teste}
+Add-Relatorio -ParentPanel $ScrollGUI -Relatorio "Teste" -Func {Rel-Teste}
+Add-Relatorio -ParentPanel $ScrollGUI -Relatorio "Teste" -Func {Rel-Teste}
+Add-Relatorio -ParentPanel $ScrollGUI -Relatorio "Teste" -Func {Rel-Teste}
+Add-Relatorio -ParentPanel $ScrollGUI -Relatorio "Teste" -Func {Rel-Teste}
+Add-Relatorio -ParentPanel $ScrollGUI -Relatorio "Teste" -Func {Rel-Teste}
+Add-Relatorio -ParentPanel $ScrollGUI -Relatorio "Teste" -Func {Rel-Teste}
+Add-Relatorio -ParentPanel $ScrollGUI -Relatorio "Teste" -Func {Rel-Teste}
+#>
+
 # INTERFACE (FUNCS)
 $TemaGUI.Add_Click({ if ($script:Cor -eq $TemaEscuro) { $script:Cor = $TemaClaro } else { $script:Cor = $TemaEscuro }; $BackGUI.BackColor = $script:Cor.Fundo; $BarGUI.BackColor = $script:Cor.Barra; $TituloGUI.ForeColor = $script:Cor.Texto; $TemaGUI.ForeColor = $script:Cor.Texto; $TemaGUI.BackColor = $script:Cor.Barra; $CloseGUI.ForeColor = $script:Cor.Texto; $CloseGUI.BackColor = $script:Cor.Barra })
 
@@ -50,3 +84,4 @@ $TituloGUI.Add_MouseUp({ $script:isDragging = $false })
 
 # INICIADOR DA INTERFACE
 $BackGUI.ShowDialog() | Out-Null
+
