@@ -4,7 +4,7 @@ Ferramenta desenvolvida em **PowerShell** com Interface Gráfica (GUI) customiza
 
 > **Status:** Versão 1.0
 
-<img width="598" height="40" alt="image" src="https://github.com/user-attachments/assets/56961ff6-374c-4cd7-a1e5-5f4a229dd62a" />
+<img width="598" height="295" alt="image" src="https://github.com/user-attachments/assets/ce82a5b6-31d4-410c-9881-c07e10f69b95" />
 
 ## ⚙️ Pré-requisitos
 
