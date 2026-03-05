@@ -1,24 +1,32 @@
-# Report Giver 📊
+# 📊 Report Giver
 
-Ferramenta desenvolvida em **PowerShell** com Interface Gráfica (GUI) customizada para extração de relatórios do Windows. O sistema coleta dados do sistema e os exporta para formatos legíveis (HTML e TXT/LOG).
+Uma ferramenta prática em **PowerShell** que gera uma Interface Gráfica (GUI) para extração automatizada de relatórios detalhados de diagnóstico do Windows. Com um clique, você obtém logs essenciais sobre hardware, rede, bateria e integridade do sistema operacional, exportados nos formatos `.txt` e `.html`.
+
+## 🖼️ Interface
 
 
-<img width="497" height="285" alt="image" src="https://github.com/user-attachments/assets/d0356b4b-a782-4fb0-abf8-fd6355503969" />
+## 📋 Relatórios Extraídos
+Os arquivos gerados são salvos automaticamente na pasta: `Desktop\Relatorios`.
 
+* **Desempenho:** Uso geral de CPU e RAM, além de listar os 10 processos que mais consomem recursos.
+* **Disco:** Espaço disponível, status S.M.A.R.T. dos discos e varredura lógica em busca de erros.
+* **Sistema:** Status do antivírus/segurança, últimos patches instalados (Windows Update), erros críticos recentes do Event Viewer e integridade do SO (via DISM e SFC).
+* **Rede:** Adaptadores, detalhes de IP, Ping, resolução DNS, Tracert e relatórios completos de rede sem fio (WLAN report).
+* **Bateria:** Saúde atual da bateria e um relatório de eficiência de energia (ideal para notebooks).
 
-## ⚙️ Pré-requisitos
+## 🚀 Como Usar
 
-* Windows 10 ou superior.
-* PowerShell 5 ou superior.
-* Acesso de Administrador (Elevação via UAC automatica).
+1. **Faça o download** do arquivo `ReportGiver.ps1` deste repositório.
+2. **Execute o script:** * Clique com o botão direito no arquivo e selecione **"Executar com o PowerShell"**.
+   * *Alternativamente:* Abra o terminal, navegue até a pasta do arquivo e digite `.\ReportGiver.ps1`.
+3. **Aceite a elevação de privilégio** (Janela de Sim/Não do Windows), caso solicitada.
+4. Na interface do Report Giver, **clique no botão** correspondente ao relatório que deseja gerar.
+5. Acompanhe o progresso pelo terminal integrado na interface. Quando finalizado, acesse sua **Área de Trabalho > Relatorios** para visualizar os arquivos!
 
-## 🛠️ Como Executar
-
-1.  Faça o clone ou o download deste repositório.
-2.  Descompacte os arquivos em uma pasta de sua preferência.
-3.  Clique com o botão direito no arquivo `ReportGiver.ps1` e selecione **"Executar com o PowerShell"**.
-4.  Se o UAC do Windows aparecer, clique em **Sim** para conceder os privilégios de administrador necessários para a extração dos relatórios.
-5.  O terminal será ocultado automaticamente e a interface do **Report Giver** aparecerá na sua tela.
+## ⚙️ Requisitos
+* **Sistema Operacional:** Windows 10 ou Windows 11.
+* **PowerShell:** Versão 5.1 ou superior (nativo no Windows).
+* **Privilégios:** Acesso de Administrador (O script conta com um sistema inteligente que detecta a falta de privilégios e solicita a elevação do UAC automaticamente).
 
 ## 📄 Licença
 
