@@ -4,6 +4,7 @@ Uma ferramenta prática em **PowerShell** que gera uma Interface Gráfica (GUI) 
 
 ## 🖼️ Interface
 
+<img width="497" height="287" alt="image" src="https://github.com/user-attachments/assets/d059228c-71ef-4fdc-9c01-b06ec2a7a20e" />
 
 ## 📋 Relatórios Extraídos
 Os arquivos gerados são salvos automaticamente na pasta: `Desktop\Relatorios`.
