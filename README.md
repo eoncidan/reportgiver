@@ -3,7 +3,8 @@
 Ferramenta desenvolvida em **PowerShell** com Interface Gráfica (GUI) customizada para extração de relatórios do Windows. O sistema coleta dados do sistema e os exporta para formatos legíveis (HTML e TXT/LOG).
 
 
-<img width="598" height="295" alt="image" src="https://github.com/user-attachments/assets/ce82a5b6-31d4-410c-9881-c07e10f69b95" />
+<img width="497" height="285" alt="image" src="https://github.com/user-attachments/assets/d0356b4b-a782-4fb0-abf8-fd6355503969" />
+
 
 ## ⚙️ Pré-requisitos
 
