@@ -34,10 +34,11 @@ $CloseGUI = New-Object System.Windows.Forms.Button; $CloseGUI.Text = "X"; $Close
 $TituloGUI = New-Object System.Windows.Forms.Label; $TituloGUI.Text = "Report Giver"; $TituloGUI.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter; $TituloGUI.Dock = "Fill"; $TituloGUI.ForeColor = $script:Cor.Texto; $BarGUI.Controls.Add($TituloGUI)
 $script:TerminalGUI = New-Object System.Windows.Forms.TextBox; $script:TerminalGUI.Location = New-Object System.Drawing.Point(140, 40); $script:TerminalGUI.Size = New-Object System.Drawing.Size(350, 240); $script:TerminalGUI.Multiline = $true; $script:TerminalGUI.ReadOnly = $true; $script:TerminalGUI.BackColor = "#000000"; $script:TerminalGUI.ForeColor = $script:Cor.Texto; $script:TerminalGUI.AppendText("  █▀▀█ █▀▀ █▀▀█ █▀▀█ █▀▀█ ▀▀█▀▀ `r`n"); $script:TerminalGUI.AppendText("  █▄▄▀ █▀▀ █  █ █  █ █▄▄▀   █   `r`n"); $script:TerminalGUI.AppendText("  ▀ ▀▀ ▀▀▀ █▀▀▀ ▀▀▀▀ ▀ ▀▀   ▀   `r`n"); $script:TerminalGUI.AppendText("  █▀▀█ ░▀░ █  █ █▀▀ █▀▀█         `r`n"); $script:TerminalGUI.AppendText("  █ ▄▄ ▀█▀ ▀▄▄▀ █▀▀ █▄▄▀         `r`n"); $script:TerminalGUI.AppendText("  █▄▄█ ▀▀▀  ▀▀  ▀▀▀ ▀ ▀▀         `r`n"); $script:TerminalGUI.AppendText(" ─────────────────────────────── `r`n"); $script:TerminalGUI.AppendText(" >> Report Giver iniciado, bem-vindo! `r`n"); $script:TerminalGUI.BorderStyle = "None"; $script:TerminalGUI.Font = New-Object System.Drawing.Font("Consolas", 9); $BackGUI.Controls.Add($script:TerminalGUI)
 
+$script:ListaBotoes = @()
 $script:ProximaPosicaoY = 40
 function Add-Relatorio {
     param($RelNome, [ScriptBlock]$Func)
-	$script:Relatorio = New-Object System.Windows.Forms.Button; $script:Relatorio.Size = New-Object System.Drawing.Size(120, 40); $script:Relatorio.Location = New-Object System.Drawing.Point(10, $script:ProximaPosicaoY); $script:Relatorio.Text = "$RelNome"; $script:Relatorio.Margin = New-Object System.Windows.Forms.Padding(0, 0, 0, 10); $script:Relatorio.BackColor = $script:Cor.Barra; $script:Relatorio.ForeColor = $script:Cor.Texto; $script:Relatorio.FlatStyle = "Flat"; $script:Relatorio.FlatAppearance.BorderSize = 0; $script:Relatorio.Cursor = [System.Windows.Forms.Cursors]::Hand; $script:Relatorio.Add_Click($Func); $BackGUI.Controls.Add($script:Relatorio); $script:ProximaPosicaoY += ($script:Relatorio.Height + 10)
+	$script:Relatorio = New-Object System.Windows.Forms.Button; $script:Relatorio.Size = New-Object System.Drawing.Size(120, 40); $script:Relatorio.Location = New-Object System.Drawing.Point(10, $script:ProximaPosicaoY); $script:Relatorio.Text = "$RelNome"; $script:Relatorio.Margin = New-Object System.Windows.Forms.Padding(0, 0, 0, 10); $script:Relatorio.BackColor = $script:Cor.Barra; $script:Relatorio.ForeColor = $script:Cor.Texto; $script:Relatorio.FlatStyle = "Flat"; $script:Relatorio.FlatAppearance.BorderSize = 0; $script:Relatorio.Cursor = [System.Windows.Forms.Cursors]::Hand; $script:Relatorio.Add_Click($Func); $script:ListaBotoes += $script:Relatorio; $BackGUI.Controls.Add($script:Relatorio); $script:ProximaPosicaoY += ($script:Relatorio.Height + 10)
 }
 
 function Txt-Terminal {
@@ -165,10 +166,11 @@ Add-Relatorio -RelNome "Bateria" -Func {Rel-Bateria}
 Gerar-Relatorios
 
 # INTERFACE (FUNCS)
-$TemaGUI.Add_Click({ if ($script:Cor -eq $TemaEscuro) { $script:Cor = $TemaClaro } else { $script:Cor = $TemaEscuro }; $BackGUI.BackColor = $script:Cor.Fundo; $BarGUI.BackColor = $script:Cor.Barra; $TituloGUI.ForeColor = $script:Cor.Texto; $TemaGUI.ForeColor = $script:Cor.Texto; $TemaGUI.BackColor = $script:Cor.Barra; $CloseGUI.ForeColor = $script:Cor.Texto; $CloseGUI.BackColor = $script:Cor.Barra; $Relatorio.BackColor = $script:Cor.Barra; $Relatorio.ForeColor = $script:Cor.Texto })
+$TemaGUI.Add_Click({ if ($script:Cor -eq $TemaEscuro) { $script:Cor = $TemaClaro } else { $script:Cor = $TemaEscuro }; $BackGUI.BackColor = $script:Cor.Fundo; $BarGUI.BackColor = $script:Cor.Barra; $TituloGUI.ForeColor = $script:Cor.Texto; $TemaGUI.ForeColor = $script:Cor.Texto; $TemaGUI.BackColor = $script:Cor.Barra; $CloseGUI.ForeColor = $script:Cor.Texto; $CloseGUI.BackColor = $script:Cor.Barra; foreach ($Btn in $script:ListaBotoes) { $Btn.BackColor = $script:Cor.Barra; $Btn.ForeColor = $script:Cor.Texto}})
 $TituloGUI.Add_MouseDown({$script:isDragging = $true; $cursorPos = [System.Windows.Forms.Cursor]::Position; $script:dragOffset = New-Object System.Drawing.Point(($cursorPos.X - $BackGUI.Location.X), ($cursorPos.Y - $BackGUI.Location.Y))})
 $TituloGUI.Add_MouseMove({if ($script:isDragging) { $cursorPos = [System.Windows.Forms.Cursor]::Position; $BackGUI.Location = New-Object System.Drawing.Point(($cursorPos.X - $script:dragOffset.X), ($cursorPos.Y - $script:dragOffset.Y))}})
 $TituloGUI.Add_MouseUp({ $script:isDragging = $false })
 
 # INICIADOR DA INTERFACE
 $BackGUI.ShowDialog() | Out-Null
+
