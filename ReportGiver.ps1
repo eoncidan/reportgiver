@@ -18,6 +18,11 @@ Add-Type -MemberDefinition $t -Name Api -Namespace Win32
 $hwnd = (Get-Process -Id $PID).MainWindowHandle
 [void][Win32.Api]::ShowWindow($hwnd, 0)
 
+# ÍCONE
+$AppIdCodigo = '[DllImport("shell32.dll")] public static extern int SetCurrentProcessExplicitAppUserModelID(string AppID);'
+Add-Type -MemberDefinition $AppIdCodigo -Name AppIdHelper -Namespace Win32
+[Win32.AppIdHelper]::SetCurrentProcessExplicitAppUserModelID("ReportGiver.App.1")
+
 # ASSEMBLIES
 Add-Type -AssemblyName System.Windows.Forms, System.Drawing
 [System.Windows.Forms.Application]::EnableVisualStyles()
@@ -27,9 +32,10 @@ $TemaEscuro = @{ Fundo = "#121212"; Texto = "#FFFFFF"; Barra = "#1F1F1F" }
 $TemaClaro  = @{ Fundo = "#F9F9F9"; Texto = "#202020"; Barra = "#F3F3F3" }
 $script:Cor = $TemaEscuro
 
-$BackGUI = New-Object System.Windows.Forms.Form; $BackGUI.Size = New-Object System.Drawing.Size(500, 290); $BackGUI.BackColor = $script:Cor.Fundo; $BackGUI.ForeColor = $script:Cor.Fundo; $BackGUI.FormBorderStyle = 'None'; $BackGUI.MaximizeBox = $false
+$BackGUI = New-Object System.Windows.Forms.Form; $BackGUI.Icon = [System.Drawing.Icon]::ExtractAssociatedIcon("$env:windir\ImmersiveControlPanel\SystemSettings.exe"); $BackGUI.Size = New-Object System.Drawing.Size(500, 290); $BackGUI.BackColor = $script:Cor.Fundo; $BackGUI.ForeColor = $script:Cor.Fundo; $BackGUI.FormBorderStyle = 'None'; $BackGUI.MaximizeBox = $false
 $BarGUI = New-Object System.Windows.Forms.Panel; $BarGUI.Height = 30; $BarGUI.Dock = "Top"; $BarGUI.BackColor = $script:Cor.Barra; $BackGUI.Controls.Add($BarGUI)
 $TemaGUI = New-Object System.Windows.Forms.Button; $TemaGUI.Text = "⮻"; $TemaGUI.Size = New-Object System.Drawing.Size(35, 30); $TemaGUI.Dock = "Right"; $TemaGUI.ForeColor = $script:Cor.Texto; $TemaGUI.BackColor = $script:Cor.Barra; $TemaGUI.FlatStyle = "Flat"; $TemaGUI.FlatAppearance.BorderSize = 0; $TemaGUI.Cursor = [System.Windows.Forms.Cursors]::Hand; $BarGUI.Controls.Add($TemaGUI)
+$MinimGUI = New-Object System.Windows.Forms.Button; $MinimGUI.Text = "-"; $MinimGUI.Size = New-Object System.Drawing.Size(35, 30); $MinimGUI.Dock = "Right"; $MinimGUI.FlatStyle = "Flat"; $MinimGUI.FlatAppearance.BorderSize = 0; $MinimGUI.ForeColor = $script:Cor.Texto; $MinimGUI.BackColor = $script:Cor.Barra; $MinimGUI.Add_Click({ $BackGUI.WindowState = [System.Windows.Forms.FormWindowState]::Minimized }); $MinimGUI.Add_MouseEnter({ $MinimGUI.BackColor = $script:Cor.Fundo }); $MinimGUI.Add_MouseLeave({ $MinimGUI.BackColor = $script:Cor.Barra }); $BarGUI.Controls.Add($MinimGUI)
 $CloseGUI = New-Object System.Windows.Forms.Button; $CloseGUI.Text = "X"; $CloseGUI.Size = New-Object System.Drawing.Size(35, 30); $CloseGUI.Dock = "Right"; $CloseGUI.FlatStyle = "Flat"; $CloseGUI.FlatAppearance.BorderSize = 0; $CloseGUI.ForeColor = $script:Cor.Texto; $CloseGUI.BackColor = $script:Cor.Barra; $CloseGUI.Add_Click({ $BackGUI.Close() }); $CloseGUI.Add_MouseEnter({ $CloseGUI.BackColor = [System.Drawing.Color]::Red }); $CloseGUI.Add_MouseLeave({ $CloseGUI.BackColor = $script:Cor.Barra }); $BarGUI.Controls.Add($CloseGUI)
 $TituloGUI = New-Object System.Windows.Forms.Label; $TituloGUI.Text = "Report Giver"; $TituloGUI.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter; $TituloGUI.Dock = "Fill"; $TituloGUI.ForeColor = $script:Cor.Texto; $BarGUI.Controls.Add($TituloGUI)
 $script:TerminalGUI = New-Object System.Windows.Forms.TextBox; $script:TerminalGUI.Location = New-Object System.Drawing.Point(140, 40); $script:TerminalGUI.Size = New-Object System.Drawing.Size(350, 240); $script:TerminalGUI.Multiline = $true; $script:TerminalGUI.ReadOnly = $true; $script:TerminalGUI.BackColor = "#000000"; $script:TerminalGUI.ForeColor = $script:Cor.Texto; $script:TerminalGUI.AppendText("  █▀▀█ █▀▀ █▀▀█ █▀▀█ █▀▀█ ▀▀█▀▀ `r`n"); $script:TerminalGUI.AppendText("  █▄▄▀ █▀▀ █  █ █  █ █▄▄▀   █   `r`n"); $script:TerminalGUI.AppendText("  ▀ ▀▀ ▀▀▀ █▀▀▀ ▀▀▀▀ ▀ ▀▀   ▀   `r`n"); $script:TerminalGUI.AppendText("  █▀▀█ ░▀░ █  █ █▀▀ █▀▀█         `r`n"); $script:TerminalGUI.AppendText("  █ ▄▄ ▀█▀ ▀▄▄▀ █▀▀ █▄▄▀         `r`n"); $script:TerminalGUI.AppendText("  █▄▄█ ▀▀▀  ▀▀  ▀▀▀ ▀ ▀▀         `r`n"); $script:TerminalGUI.AppendText(" ─────────────────────────────── `r`n"); $script:TerminalGUI.AppendText(" >> Report Giver iniciado, bem-vindo! `r`n"); $script:TerminalGUI.BorderStyle = "None"; $script:TerminalGUI.Font = New-Object System.Drawing.Font("Consolas", 9); $BackGUI.Controls.Add($script:TerminalGUI)
@@ -173,3 +179,4 @@ $TituloGUI.Add_MouseUp({ $script:isDragging = $false })
 
 # INICIADOR DA INTERFACE
 $BackGUI.ShowDialog() | Out-Null
+
