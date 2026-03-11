@@ -149,12 +149,12 @@ function Rel-Rede {
 	Txt-Terminal "Realizando tracert..."    
 	"================ TRACERT ================" | Out-File $Arquivo -Append
 	tracert.exe -d -h 15 8.8.8.8 | Out-File $Arquivo -Append
+	tracert.exe -d -h 15 8.8.4.4 | Out-File $Arquivo -Append
 	Txt-Terminal "Relatório finalizado!"	
 }
 
 # Relatorio de status da bateria.
 function Rel-Bateria {
-
 	# Codigo do relatorio.
 	Fol-Relatorios
 	Txt-Terminal "Iniciando relatório!"
@@ -182,5 +182,6 @@ $TituloGUI.Add_MouseUp({ $script:isDragging = $false })
 
 # INICIADOR DA INTERFACE
 $BackGUI.ShowDialog() | Out-Null
+
 
 
