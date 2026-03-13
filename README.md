@@ -1,26 +1,30 @@
 # 📊 Report Giver
 
-Uma ferramenta prática em **PowerShell** que gera uma Interface Gráfica (GUI) para extração de relatórios de diagnóstico do Windows. Com um clique, você obtém logs essenciais sobre hardware, rede, bateria e integridade do sistema operacional, exportados nos formatos `.txt` e `.html`.
+Uma ferramenta prática em **PowerShell** que gera uma Interface Gráfica (GUI) limpa para extração de relatórios de diagnóstico do Windows. Com um clique, você obtém logs essenciais sobre hardware, rede, bateria e integridade do sistema operacional, exportados nos formatos `.txt` e `.html`.
 
 <img width="497" height="287" alt="image" src="https://github.com/user-attachments/assets/f5c397c5-c1e7-4149-a405-6f70d1e76311" />
+
+## ✨ Destaques da Ferramenta
+* **Interface Limpa:** O script oculta o console nativo do PowerShell em segundo plano, rodando apenas a interface gráfica.
+* **Modo Claro/Escuro:** Alternância rápida de tema com um clique na barra superior.
+* **Auto-Elevação:** Detecta automaticamente a falta de privilégios de Administrador e solicita elevação via UAC antes de executar.
 
 ## 📋 Relatórios Extraídos
 Os arquivos gerados são salvos automaticamente na pasta: `Desktop\Relatorios`.
 
-* **Desempenho:** Uso geral de CPU e RAM, além de listar os 10 processos que mais consomem recursos.
-* **Disco:** Espaço disponível, status S.M.A.R.T. dos discos e varredura lógica em busca de erros.
-* **Sistema:** Status do antivírus/segurança, últimos patches instalados (Windows Update), erros críticos recentes do Event Viewer e integridade do SO (via DISM e SFC).
-* **Rede:** Adaptadores, detalhes de IP, Ping, resolução DNS, Tracert e relatórios completos de rede sem fio (WLAN report).
-* **Bateria:** Saúde atual da bateria e um relatório de eficiência de energia (ideal para notebooks).
+* **Desempenho:** Uso geral de CPU e RAM, listando os 10 processos ativos que mais consomem recursos.
+* **Disco:** Espaço disponível, status S.M.A.R.T. das unidades e varredura lógica (Scan) em busca de erros no disco C:.
+* **Sistema:** Status de segurança (Antivírus/EDR), últimos 5 patches do Windows Update, erros críticos recentes do Event Viewer (últimos 7 dias) e verificação de integridade do SO (DISM CheckHealth e SFC VerifyOnly).
+* **Rede:** Adaptadores, detalhes completos de IP, Ping, resolução DNS, Tracert e relatório completo de rede sem fio (WLAN Report).
+* **Bateria:** Saúde atual da bateria e relatório de eficiência de energia (ideal para notebooks).
 
 ## 🚀 Como Usar
 
-1. **Faça o download** do arquivo `ReportGiver.ps1` deste repositório.
-2. **Execute o script:** * Clique com o botão direito no arquivo e selecione **"Executar com o PowerShell"**.
-   * *Alternativamente:* Abra o terminal, navegue até a pasta do arquivo e digite `.\ReportGiver.ps1`.
-3. **Aceite a elevação de privilégio** (Janela de Sim/Não do Windows), caso solicitada.
-4. Na interface do Report Giver, **clique no botão** correspondente ao relatório que deseja gerar.
-5. Acompanhe o progresso pelo terminal integrado na interface. Quando finalizado, acesse sua **Área de Trabalho > Relatorios** para visualizar os arquivos!
+A maneira mais fácil de testar a ferramenta é rodá-la diretamente via terminal. Abra o seu PowerShell e cole o comando abaixo:
+
+```powershell
+irm https://tinyurl.com/reportgiver | iex
+```
 
 ## ⚙️ Requisitos
 * **Sistema Operacional:** Windows 10 ou Windows 11.
